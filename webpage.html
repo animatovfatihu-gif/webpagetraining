@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FHG Business — Wellness & Distribution</title>
+
+  <!-- =========================
+       VARIABLES & RESET
+       ========================= -->
+  <style>
+    :root{
+      --midnight: #0D0D1A;
+      --midnight-2: #121226;
+      --lemon: #E3FF00;
+      --lemon-dim: #555a19;
+      --muted: #cfcfcf;
+      --glass: rgba(255,255,255,0.03);
+      --card-radius: 12px;
+      --maxw: 1200px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--midnight);
+      color: #f4f4f4;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      min-height:100vh;
+      position:relative;
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    img{display:block; width:100%; height:auto; border-radius:10px}
+    .container{width:min(94%, var(--maxw)); margin-inline:auto}
+    .row{display:flex; gap:1rem; align-items:flex-start; flex-wrap:wrap}
+    h1,h2,h3{line-height:1.05}
+    /* small helpers */
+    .center{text-align:center}
+    .muted{color:var(--muted)}
+    .btn{display:inline-block;padding:.6rem 1rem;border-radius:10px;font-weight:700;border:none;cursor:pointer}
+    .btn--accent{background:var(--lemon);color:var(--midnight); box-shadow:0 6px 20px rgba(227,255,0,0.08)}
+    .btn--subtle{background:transparent;border:1px solid rgba(227,255,0,0.12);color:var(--lemon)}
+    /* responsive utility */
+    @media (max-width:820px){ .row{flex-direction:column} }
+  </style>
+
+  <!-- =========================
+       HEADER (NAV) — animated gradient
+       ========================= -->
+  <style>
+    header{
+      position:fixed; inset:0 0 auto 0; z-index:1200;
+      background: linear-gradient(270deg, var(--midnight), #141426, var(--lemon));
+      background-size: 600% 600%;
+      animation: headerShift 10s ease infinite;
+      padding:.6rem 0;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.6);
+      backdrop-filter: blur(6px) saturate(120%);
+    }
+    @keyframes headerShift{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem; width:min(94%, var(--maxw)); margin-inline:auto}
+    .brand{display:flex;gap:.6rem;align-items:center}
+    .logo{
+      width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--lemon),#c7d200);
+      display:grid;place-items:center;color:var(--midnight);font-weight:800;font-family:monospace;
+      box-shadow:0 4px 18px rgba(227,255,0,0.08)
+    }
+    nav ul{display:flex;gap:1rem;align-items:center;margin:0;padding:0;list-style:none}
+    nav a{padding:.25rem .6rem;border-radius:8px;color:var(--lemon);font-weight:600;transition:all .22s ease}
+    nav a:hover{color:#fff;background:linear-gradient(90deg,rgba(227,255,0,0.06),transparent); transform:translateY(-2px)}
+    .nav-ctas{display:flex;gap:.6rem;align-items:center}
+    .hamburger{display:none;background:transparent;border:0;color:var(--lemon);font-size:1.6rem;cursor:pointer}
+    /* mobile */
+    @media (max-width:820px){
+      nav ul{display:none; position:absolute; right:16px; top:66px; background:rgba(10,10,18,0.96); padding:.8rem; border-radius:10px; flex-direction:column; min-width:160px}
+      nav ul.show{display:flex}
+      .hamburger{display:inline-block}
+    }
+  </style>
+
+  <!-- =========================
+       HERO — separate CSS
+       ========================= -->
+  <style>
+    .hero{
+      padding:120px 0 48px;
+      min-height:60vh;
+      display:grid; place-items:center;
+      background:linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 100%);
+      position:relative;
+    }
+    .hero-inner{display:flex;gap:2rem;align-items:center; flex-wrap:wrap; justify-content:center; width:var(--maxw); margin-inline:auto;}
+    .hero-copy{max-width:640px}
+    .hero h1{
+      font-size:clamp(1.9rem,4.5vw,3.4rem);
+      color:var(--lemon);
+      margin-bottom:.4rem;
+      letter-spacing:.6px;
+      text-shadow:0 0 20px rgba(227,255,0,0.12);
+      animation: heroGlow 2.6s ease-in-out infinite;
+    }
+    @keyframes heroGlow{
+      0%,100%{text-shadow:0 0 8px rgba(227,255,0,0.06)}
+      40%{text-shadow:0 0 30px rgba(227,255,0,0.32)}
+    }
+    .hero p{font-size:1.05rem;color:var(--muted);margin-bottom:1rem}
+    .hero-visual{width:420px;max-width:43vw; border-radius:16px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.6); transform:translateY(0)}
+    .hero-visual img{height:100%;object-fit:cover}
+    /* hero text realistic "flicker" small effect */
+    .type-flicker{display:inline-block; position:relative; animation: flicker 3.8s steps(5,end) infinite}
+    @keyframes flicker{
+      0%{opacity:1}10%{opacity:.9}12%{opacity:1}18%{opacity:.6}22%{opacity:1}100%{opacity:1}
+    }
+  </style>
+
+  <!-- =========================
+       SERVICES — separate CSS (rotating border)
+       ========================= -->
+  <style>
+    .section { padding:48px 0; }
+    .section-head{margin-bottom:1rem}
+    .services .service-grid{display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .service-card{
+      position:relative;padding:22px;border-radius:14px; overflow:visible; min-height:140px;
+      background:linear-gradient(180deg,var(--midnight-2), rgba(255,255,255,0.02));
+      display:flex;flex-direction:column; justify-content:center; gap:.6rem;
+    }
+    /* rotating conic gradient border */
+    .service-card::before{
+      content:""; position:absolute; inset:-3px; border-radius:16px; z-index:-1;
+      background: conic-gradient(from 0deg, var(--lemon), #1b1b2a, var(--midnight), var(--lemon));
+      filter:blur(.6px);
+      animation: rotateBorder 7s linear infinite;
+    }
+    .service-card::after{
+      content:""; position:absolute; inset:6px; z-index:-1; border-radius:10px; background:linear-gradient(180deg,#0f1120, #141426);
+    }
+    @keyframes rotateBorder{ 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
+    .service-title{font-weight:700;color:var(--lemon);}
+    .service-desc{color:var(--muted);font-size:.95rem}
+  </style>
+
+  <!-- =========================
+       ABOUT — separate CSS
+       ========================= -->
+  <style>
+    .about .about-inner{display:grid;grid-template-columns:1fr 420px;gap:2rem;align-items:center}
+    .about .mission{background:linear-gradient(180deg, rgba(227,255,0,0.03), transparent); padding:20px;border-radius:12px}
+    .about p.lead{color:var(--muted)}
+    @media (max-width:900px){ .about .about-inner{grid-template-columns:1fr} }
+  </style>
+
+  <!-- =========================
+       PRODUCTS — separate CSS
+       ========================= -->
+  <style>
+    .product-grid{display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .product-card{background:linear-gradient(180deg,#0f1220, #14142a); border-radius:12px; padding:16px; position:relative; box-shadow:0 8px 40px rgba(0,0,0,0.6); border:1px solid rgba(227,255,0,0.06)}
+    .product-card h4{color:var(--lemon); margin-bottom:.4rem}
+    .product-cta{display:flex;gap:.5rem; margin-top:8px}
+    .product-card img{border-radius:10px; transition:transform .35s ease}
+    .product-card:hover img{transform:scale(1.03)}
+    details summary{cursor:pointer; color:var(--muted); font-weight:700; list-style:none}
+    details[open] summary{color:var(--lemon)}
+  </style>
+
+  <!-- =========================
+       MEDIA / GALLERY — separate CSS
+       ========================= -->
+  <style>
+    .media-grid{display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); margin-top:12px}
+    .media-grid img{height:120px; object-fit:cover}
+    .video-wrap{border-radius:12px; overflow:hidden; box-shadow:0 10px 40px rgba(0,0,0,0.6); border:4px solid rgba(227,255,0,0.06)}
+  </style>
+
+  <!-- =========================
+       CONTACT & FOOTER
+       ========================= -->
+  <style>
+    .contact-form{max-width:720px;margin-inline:auto;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); padding:18px; border-radius:12px}
+    .field{display:flex;flex-direction:column; gap:.4rem; margin-bottom:.6rem}
+    input, textarea{background:transparent;border:1px solid rgba(227,255,0,0.08); padding:.6rem; color:#fff; border-radius:8px}
+    input:focus, textarea:focus{outline:2px solid rgba(227,255,0,0.14)}
+    footer{padding:28px 0; margin-top:28px; border-top:1px solid rgba(227,255,0,0.06)}
+  </style>
+
+  <!-- =========================
+       ANIMATIONS & REVEAL
+       ========================= -->
+  <style>
+    .reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease}
+    .reveal.in{opacity:1; transform:none}
+    .title-anim{display:inline-block; background:linear-gradient(90deg,var(--lemon), #fff); -webkit-background-clip:text; background-clip:text; color:transparent; animation: slideGlow 1.6s ease forwards}
+    @keyframes slideGlow{ from{transform:translateY(6px); opacity:0} to{transform:none; opacity:1} }
+  </style>
+
+  <!-- =========================
+       FLOATING CAPSULES (base styles)
+       ========================= -->
+  <style>
+    .capsule{
+      position:fixed; bottom:-80px; z-index:0; border-radius:999px; display:block; opacity:.9;
+      box-shadow:0 10px 30px rgba(227,255,0,0.06), inset 0 1px 8px rgba(255,255,255,0.02);
+      transform-origin:center;
+      pointer-events:none;
+      mix-blend-mode:screen;
+    }
+    @keyframes floatUp{
+      0%{ transform: translateY(0) rotate(0) scale(.9); opacity:0 }
+      10%{ opacity:.6 }
+      50%{ opacity:.9 }
+      100%{ transform: translateY(-140vh) rotate(360deg) scale(1); opacity:0 }
+    }
+  </style>
+
+</head>
+<body>
+
+  <!-- FLOATING CAPSULES container (JS will add children) -->
+  <div id="capsule-area" aria-hidden="true"></div>
+
+  <!-- HEADER / NAV -->
+  <header role="banner">
+    <div class="nav-inner container">
+      <div class="brand">
+        <div class="logo">FHG</div>
+        <div>
+          <div style="font-weight:800">FHG Business</div>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:2px">Neolife distribution — global</div>
+        </div>
+      </div>
+
+      <nav role="navigation" aria-label="Main navigation">
+        <button class="hamburger" id="menuBtn" aria-expanded="false" aria-controls="navList">☰</button>
+        <ul id="navList">
+          <li><a href="#hero">Home</a></li>
+          <li><a href="services.html" target="_blank">Services</a></li>
+          <li><a href="about.html" target="_blank">About</a></li>
+          <li><a href="products.html" target="_blank">Products</a></li>
+          <li><a href="media.html" target="_blank">Media</a></li>
+          <li><a href="contact.html" target="_blank">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-ctas">
+        <a class="btn btn--subtle" href="#register">Register</a>
+        <a class="btn btn--accent" href="#contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section id="hero" class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <h1 class="type-flicker">FHG Business — wellness that travels the world</h1>
+          <p class="muted">Trusted Neolife distributors with presence in <strong>78+ countries.</strong> We deliver authentic supplements, training and membership benefits for individuals and small businesses.</p>
+
+          <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:10px">
+            <a class="btn btn--accent" href="#register">Register Now</a>
+            <a class="btn btn--subtle" href="#products">View Products</a>
+          </div>
+
+          <div style="margin-top:18px;color:var(--muted);font-size:.93rem">
+            <strong>Why FHG?</strong>
+            <ul style="margin:.4rem 0 0 1.05rem; color:var(--muted)">
+              <li>Authentic product guarantees & global shipping</li>
+              <li>Member training & marketing support</li>
+              <li>Transparent pricing and bulk options</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" style="max-width:440px; width:100%">
+          <img src="https://images.unsplash.com/photo-1556742400-b5c6f0c4b7b6?q=80&w=1200&auto=format&fit=crop"
+                 alt="Healthy supplements on futuristic table" />
+        </div>
+      </div>
+    </section>
+
+ 
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container center" style="display:flex; gap:1rem; align-items:center; justify-content:space-between; flex-wrap:wrap">
+        <div style="text-align:left">
+          <strong>FHG Business</strong><br><span class="muted">Authentic supplements • Member-first support</span>
+        </div>
+        <div style="text-align:center" class="muted">© <span id="year"></span> FHG Business — All rights reserved</div>
+        <div style="text-align:right">
+          <a href="#" style="margin-right:.5rem">Facebook</a>
+          <a href="#" style="margin-right:.5rem">Instagram</a>
+          <a href="#">Twitter</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- =========================
+       SCRIPTS: reveal, nav toggle, capsules
+       ========================= -->
+  <script>
+    // year
+    document.getElementById('year').textContent = (new Date()).getFullYear();
+
+    // mobile nav toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navList = document.getElementById('navList');
+    menuBtn?.addEventListener('click', ()=>{
+      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+      menuBtn.setAttribute('aria-expanded', String(!expanded));
+      navList.classList.toggle('show');
+    });
+
+    // intersection reveal
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target) }
+      });
+    }, {threshold: .12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // FLOATING CAPSULES (dynamic generation)
+    (function createCapsules(){
+      const area = document.getElementById('capsule-area');
+      const count = 12;
+      const colors = ['linear-gradient(90deg,var(--lemon), rgba(227,255,0,0.7))','linear-gradient(90deg,#fff6b2, var(--lemon-dim))'];
+      for(let i=0;i<count;i++){
+        const el = document.createElement('div');
+        el.className = 'capsule';
+        // randomized size and position
+        const w = Math.round(24 + Math.random()*70);
+        const h = Math.round(12 + Math.random()*28);
+        el.style.width = w + 'px';
+        el.style.height = h + 'px';
+        el.style.left = Math.round(Math.random()*95) + 'vw';
+        // slight horizontal offset movement by translateX in animation delay and duration
+        const dur = 12 + Math.random()*18;
+        const delay = Math.random()*-40;
+        el.style.animation = `floatUp ${dur}s linear ${delay}s infinite`;
+        el.style.background = colors[Math.floor(Math.random()*colors.length)];
+        el.style.opacity = .6 + Math.random()*.35;
+        el.style.transform = `rotate(${Math.random()*360}deg)`;
+        el.style.filter = 'drop-shadow(0 6px 18px rgba(227,255,0,0.06))';
+        area.appendChild(el);
+      }
+    })();
+
+    // Accessibility: close nav when link clicked (mobile)
+    document.querySelectorAll('#navList a').forEach(a=>{
+      a.addEventListener('click', ()=> {
+        navList.classList.remove('show');
+        menuBtn.setAttribute('aria-expanded','false');
+      });
+    });
+
+    // small enhancement: smooth-floating heading pulse on hover
+    document.querySelectorAll('.service-card').forEach(card=>{
+      card.addEventListener('mouseenter', ()=> card.style.transform = 'translateY(-6px) scale(1.01)');
+      card.addEventListener('mouseleave', ()=> card.style.transform = 'none');
+    });
+  </script>
+</body>
+</html>

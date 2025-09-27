@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+</head>
+<body>
+       <section id="contact" class="section contact container">
+      <div class="section-head center reveal">
+        <h2 class="title-anim">Get in Touch</h2>
+        <p class="muted">Questions about membership, bulk orders or training? Send a message and we'll reply promptly.</p>
+      </div>
+
+      <form class="contact-form reveal" onsubmit="event.preventDefault(); alert('Thanks — contact form submitted (demo).')">
+        <div class="row">
+          <div style="flex:1; min-width:180px" class="field">
+            <label for="name">Full name</label>
+            <input id="name" type="text" required placeholder="Jane Doe">
+          </div>
+          <div style="flex:1; min-width:180px" class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" required placeholder="you@example.com">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" rows="5" placeholder="How can we help?" required></textarea>
+        </div>
+
+        <div style="text-align:center; margin-top:.6rem">
+          <button class="btn btn--accent" type="submit">Send Message</button>
+        </div>
+      </form>
+
+      <div style="margin-top:18px; text-align:center; color:var(--muted)">
+        <p>Or chat with us on <a href="https://wa.me/+2348157430453" target="_blank" style="color:var(--lemon)">WhatsApp</a> • Phone: +234 815 743 0453</p>
+      </div>
+    </section>
+</body>
+</html>
